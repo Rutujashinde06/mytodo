@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'main' %}
+
+  <div class="row">
+  
+    <div class="col-md-3 mt-3">
+      <h4 class="bg-secondary text-white p-2">By Status</h4>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link " href="/sort/1"><h5>Active</h5></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/sort/0"><h5>Inactive</h5></a>
+        </li>
+      </ul><!--sort end-->
+        <h4 class="bg-secondary text-white p-2">By Category</h4>
+        <ul class="nav flex-column">
+          <li class="nav-item">
+            <a class="nav-link " href="/catfilter/2"><h5>Personal</h5></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/catfilter/1"><h5>Office</h5></a>
+          </li>
+      
+      </ul><!--sort by category-->
+      
+      <!---
+      <div class="col-md-4 mt-5">
+        <h3 class="bg-primary text-white text-center p-2">Add Task</h3>
+    
+        <form method="POST" action="">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for=""><Strong>Priority</Strong></label>
+                <select class="form-select" name="pr" style="width:30px; border-radius:20px;text-align:center;" aria-label="Default select example">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                  </select>
+            </div>
+            <div class="mb-3">
+                <label for="pid" class="form-label"><strong>Task name</strong></label>
+                <input type="text" class="form-control" name="name" id="pid" placeholder="Enter Task Name">
+                
+              </div>
+              
+    
+              <div class="mb-3">
+                <label for=""><Strong>Category</Strong></label>
+                <select class="form-select" name="cat" aria-label="Default select example">
+                    <option value="1">Personal</option>
+                    <option value="2">Office</option>
+                  </select>
+            </div>
+    
+    
+            <div class="mb-3">
+               
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="status" value="0" id="radio2" checked>
+                    <label class="form-check-label" for="radio2">
+                      Inactive
+                    </label>
+                </div>
+             
+                <div class="my-3">
+                    <button type="submit" class="btn btn-danger">Add Task</button>
+    
+                </div>
+    
+            </div>
+    </div>
+    </div>
+    --->
+      <div class="mb-3">
+       <button type="submit" class="btn btn-success">Apply</button>
+      </div>
+      </form>
+
+      </div>
+      
+
+      <div class="col-md-8 mt-3">
+            
+        <h3 class="bg-primary text-white text-center p-2">View Task</h3>
+        <table class="table table-hover">
+            <tr>
+                <th>Task Name</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+    {% for x in tasks %}
+            <tr>
+                <td>{{x.name}}</td>
+                {% if x.cat == 1 %}
+                <td>Personal</td>
+                {% else %}
+                <td>Office</td>
+                {% endif %}
+               
+                
+                
+                {% if x.status == 1 %}
+                <td class="text-success">Completed</td>
+                {% else %}
+                <td class="text-danger"><b>Pending</b></td>
+                {% endif %}
+                
+                <td><a href="/edittask/{{x.id}}"><button class="btn btn-warning">Edit</button></a></td>
+                <td><a href="/deltask/{{x.id}}"><button class="btn btn-danger">Delete</button></a></td>
+            </tr>
+    {% endfor %}
+            
+        </table>
+        <div class="col-md-4">
+          <a href="/addtask"><button>Add Task</button></a>
+        </div>                
+       
+    </div>
+    
+    </div>
+</div>
+
+
+
+
+{% endblock 'main' %}

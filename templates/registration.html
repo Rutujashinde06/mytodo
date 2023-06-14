@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block 'main' %}
+<script>
+  function checkpassword()
+  {
+    if(document.signup.pwd.value!=document.signup.cpwd.value)
+    {
+      alert('Password and Repeat Password field does not match');
+      document.signup.cpwd.focus();
+      return false;
+
+    }
+      return true;
+  }
+</script>
+<div class="row mt-5 border border-black mx-auto p-2" style="width: 600px; height:500px;">
+
+  <div class="card-body">
+    <h5 class="p-2 text-danger" style="border-bottom: 2px solid orange">Create an Account</h5> 
+    <div class="container-fluid">
+      <form method="POST" name="signup" onsubmit="return checkpassword()">
+        {% csrf_token %}
+        <table>
+            <tr>
+                {% for x in userform %}
+
+                <td class="fw-bold"><h5>{{x.label_tag}}</h5></td>
+                <td>{{x}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td></td>
+                <td><input class="btn btn-danger mt-3 ms-3" type="submit" value="Register"></td><br>
+                {% if success %}
+                <td><span>{{success}}</span> <a href="/user_login">Login</a></td>
+                {% endif %}
+            </tr>
+            <tr>
+                <td></td>
+                
+            </tr>
+           
+        </table>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+{% endblock 'main' %}
